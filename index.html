@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Calculator | Predict Your Future</title>
+    <meta name="description" content="Input your habits and tasks to calculate your likelihood of success using our premium AI-driven algorithm.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+</head>
+<body>
+    <div class="background-glob"></div>
+    <div class="background-glob glob-2"></div>
+
+    <main class="app-container">
+        <!-- HEADER -->
+        <header class="app-header fade-in">
+            <div class="logo">
+                <span class="icon">🚀</span> Success<span class="highlight">Calc</span>
+            </div>
+            <p class="subtitle">Quantify your potential.</p>
+        </header>
+
+        <!-- STEP 1: WELCOME -->
+        <section id="step-welcome" class="card fade-in active">
+            <h1>Ready to Measure Your <br><span class="gradient-text">Success Rate?</span></h1>
+            <p class="card-description">Success isn't random. It's a formula. Tell us what you're doing, and we'll tell you where you're going.</p>
+            <button class="btn-primary" onclick="goToStep('input')">Start Calculator</button>
+        </section>
+
+        <!-- STEP 2: INPUTS -->
+        <section id="step-input" class="card hidden">
+            <div class="card-header">
+                <h2>Your Daily Architecture</h2>
+                <div class="progress-indicator">Step 1 of 2</div>
+            </div>
+            
+            <div class="input-group">
+                <label for="productivity-slider">Productivity Level (1-10)</label>
+                <div class="range-container">
+                    <input type="range" id="productivity-slider" min="1" max="10" value="5" oninput="updateRangeValue(this, 'prod-val')">
+                    <span id="prod-val" class="range-value">5</span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Key Habits & Tasks</label>
+                <p class="input-hint">List the things you do daily (e.g., "Wake up at 5am", "Read 30 mins").</p>
+                <div id="habit-list" class="habit-list">
+                    <div class="habit-item">
+                        <input type="text" placeholder="Enter a positive habit..." class="habit-input">
+                        <button class="btn-icon remove" onclick="removeHabit(this)">×</button>
+                    </div>
+                </div>
+                <button class="btn-secondary small" onclick="addHabit()">+ Add Another</button>
+            </div>
+
+            <div class="input-group">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="consistency-check">
+                    <span class="checkmark"></span>
+                    I have been consistent for at least 30 days.
+                </label>
+            </div>
+
+            <div class="actions">
+                <button class="btn-text" onclick="goToStep('welcome')">Back</button>
+                <button class="btn-primary" onclick="calculateSuccess()">Calculate Success</button>
+            </div>
+        </section>
+
+        <!-- STEP 3: LOADING -->
+        <section id="step-loading" class="card hidden centered">
+            <div class="loader"></div>
+            <p class="loading-text">Analyzing variables...</p>
+        </section>
+
+        <!-- STEP 4: RESULT -->
+        <section id="step-result" class="card hidden">
+            <div class="result-header">
+                <h2>Probability of Success</h2>
+            </div>
+            
+            <div class="gauge-container">
+                <svg class="gauge" viewBox="0 0 120 120">
+                    <circle class="gauge-bg" cx="60" cy="60" r="54"></circle>
+                    <circle class="gauge-progress" id="gauge-progress" cx="60" cy="60" r="54" stroke-dasharray="339.292" stroke-dashoffset="339.292"></circle>
+                </svg>
+                <div class="percentage-display">
+                    <span id="score-value">0</span><span class="percent">%</span>
+                    <div id="score-tier" class="tier-badge">Calculating...</div>
+                </div>
+            </div>
+
+            <div class="analysis-box">
+                <h3>Analysis</h3>
+                <p id="analysis-text">...</p>
+            </div>
+
+            <button class="btn-primary" onclick="resetCalculator()">Recalculate</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
