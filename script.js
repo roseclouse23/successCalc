@@ -146,7 +146,46 @@ function showResult(score) {
             progressCircle.style.stroke = "#ef4444";
             analysisText.innerText = "Your current trajectory suggests resistance. Focus on removing distractions and securing just one small win per day to build momentum.";
         }
+
+        // Generate and display recommendations
+        const recommendations = getRecommendations(score);
+        displayRecommendations(recommendations);
     }, 100);
+}
+
+function getRecommendations(score) {
+    if (score > 80) {
+        return [
+            "Find a Mentor: Seek guidance from someone 2-3 steps ahead of you.",
+            "Optimize Energy: Track your peak performance hours and protect them.",
+            "Network Strategically: audit your circle of influence."
+        ];
+    } else if (score > 50) {
+        return [
+            "Deep Work: Schedule 90-minute blocks of distraction-free work.",
+            "Track Metrics: You can't improve what you don't measure. Start logging daily progress.",
+            "Health Check: Ensure your sleep and nutrition are fueling your ambition."
+        ];
+    } else {
+        return [
+            "build Consistency: Do one small productive thing at the same time every day.",
+            "Plan Your Day: Spend 10 minutes each night planning the next day.",
+            "Eliminate one distraction: Identify your biggest time-waster and cut it."
+        ];
+    }
+}
+
+function displayRecommendations(items) {
+    const list = getEl('recommendations-list');
+    list.innerHTML = ''; // Clear previous
+
+    items.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.className = 'recommendation-item';
+        li.style.animationDelay = `${index * 100}ms`;
+        li.innerText = item;
+        list.appendChild(li);
+    });
 }
 
 function resetCalculator() {
