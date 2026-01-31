@@ -16,7 +16,7 @@ function goToStep(stepName) {
     // Show target
     const target = getEl(`step-${stepName}`);
     target.classList.remove('hidden');
-    
+
     // Trigger generic fade in logic by re-adding class
     target.classList.remove('fade-in');
     void target.offsetWidth; // trigger reflow
@@ -51,7 +51,7 @@ function calculateSuccess() {
     // 1. Gather Inputs
     const productivity = parseInt(getEl('productivity-slider').value);
     const isConsistent = getEl('consistency-check').checked;
-    
+
     const habitInputs = document.querySelectorAll('.habit-input');
     let validHabits = 0;
     let positiveKeywords = ['read', 'workout', 'exercise', 'study', 'code', 'meditate', 'work', 'clean', 'learn', 'save', 'plan'];
@@ -73,11 +73,11 @@ function calculateSuccess() {
 
     // 3. Algorithm
     // Base score from productivity (0-50)
-    let score = productivity * 5; 
-    
+    let score = productivity * 5;
+
     // Habit score (up to 30)
     score += Math.min(validHabits * 5, 30);
-    
+
     // Consistency Multiplier (flat +10 or so)
     if (isConsistent) score += 15;
 
@@ -96,7 +96,7 @@ function calculateSuccess() {
 
 function showResult(score) {
     goToStep('result');
-    
+
     // Animate Gauge
     const progressCircle = getEl('gauge-progress');
     const textDisplay = getEl('score-value');
@@ -105,7 +105,7 @@ function showResult(score) {
 
     // Reset gauge
     progressCircle.style.strokeDashoffset = TOTAL_CIRCUMFERENCE;
-    
+
     // Calculate new offset
     const offset = TOTAL_CIRCUMFERENCE - (score / 100 * TOTAL_CIRCUMFERENCE);
 
@@ -128,7 +128,7 @@ function showResult(score) {
     // Trigger stroke animation
     setTimeout(() => {
         progressCircle.style.strokeDashoffset = offset;
-        
+
         // Coloring based on score
         if (score > 80) {
             tierDisplay.innerText = "Elite Performer";
@@ -157,3 +157,11 @@ function resetCalculator() {
         // ...
     }, 500);
 }
+
+// Expose functions to window for HTML event handlers
+window.goToStep = goToStep;
+window.updateRangeValue = updateRangeValue;
+window.addHabit = addHabit;
+window.removeHabit = removeHabit;
+window.calculateSuccess = calculateSuccess;
+window.resetCalculator = resetCalculator;
